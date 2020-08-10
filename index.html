@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="imageuploader">
+        <input type="file" id="getimg"> <br>
+        <br>
+        <button type="submit" id="save"> save </button>
+    </div>
+    <button onclick="shows()"> show </button>
+
+</body>
+<script>
+
+    var saveed = document.querySelector('#save')
+    var imgcontainer = document.querySelector(".imageuploader");
+    saveed.addEventListener("click", () => {
+        var imgget = document.querySelector("#getimg")
+       
+        var reader = new FileReader();
+        var name = imgget.files[0].name;    
+        var url = reader.readAsDataURL(imgget.files[0])
+        reader.addEventListener("load", function () {
+            if(this.result){
+            url =this.result
+            window.localStorage.setItem(name,url)}
+            else
+            console.log("somthing worng")
+        })
+        console.log(reader.result);
+
+        console.log(window.localStorage.length)
+
+    })
+    function shows() {
+        let res = window.localStorage.getItem(window.localStorage.key(0))
+        var image =new Image();
+        image.src=res
+        imgcontainer.appendChild(image)
+    };
+</script>
+
+</html>
